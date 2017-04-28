@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="3dp"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        app:cardUseCompatPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="102dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mTextViewProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/test_product"
+                android:textStyle="bold"
+                android:layout_below="@+id/mTextViewDate"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="11dp" />
+
+            <TextView
+                android:id="@+id/mTextViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_price"
+                android:layout_below="@+id/mTextViewProductName"
+                android:layout_alignLeft="@+id/mTextViewProductName"
+                android:layout_alignStart="@+id/mTextViewProductName"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/mTextViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_date"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/mTextViewProductName"
+                android:layout_alignStart="@+id/mTextViewProductName"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
