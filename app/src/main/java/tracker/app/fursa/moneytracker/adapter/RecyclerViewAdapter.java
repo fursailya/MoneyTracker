@@ -1,5 +1,7 @@
 package tracker.app.fursa.moneytracker.adapter;
 
+import android.animation.AnimatorInflater;
+import android.animation.StateListAnimator;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -40,10 +42,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        notifyItemInserted(position);
 //    }
 //
-    public void removeItem(int position) {
-        mProductList.remove(position);
-        notifyItemRemoved(position);
-    }
+//    public void removeItem(int position) {
+//        mProductList.remove(position);
+//        notifyItemRemoved(position);
+//    }
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -79,6 +81,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mTextViewDate = (TextView) itemView.findViewById(R.id.mTextViewDate);
 
             mCardProduct.setOnClickListener(this);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                StateListAnimator stateListAnimator = AnimatorInflater
+                        .loadStateListAnimator(itemView.getContext(), R.drawable.touch);
+                mCardProduct.setStateListAnimator(stateListAnimator);
+            }
         }
 
         @Override

@@ -9,6 +9,8 @@
     <android.support.v7.widget.CardView
         app:cardUseCompatPadding="true"
         android:id="@+id/cardProduct"
+        android:stateListAnimator="@drawable/touch"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="102dp" >
 
