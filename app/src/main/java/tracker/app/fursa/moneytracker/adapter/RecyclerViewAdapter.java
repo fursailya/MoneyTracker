@@ -1,15 +1,19 @@
 package tracker.app.fursa.moneytracker.adapter;
 
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import tracker.app.fursa.moneytracker.R;
 import tracker.app.fursa.moneytracker.data.Product;
+import tracker.app.fursa.moneytracker.db.DatabaseManager;
 
 /**
  * Created by Ilya Fursa on 24.04.2017.
@@ -36,10 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 //        notifyItemInserted(position);
 //    }
 //
-//    public void removeItem(int position) {
-//        mProductList.remove(position);
-//        notifyItemRemoved(position);
-//    }
+    public void removeItem(int position) {
+        mProductList.remove(position);
+        notifyItemRemoved(position);
+    }
 
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,17 +65,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mProductList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        CardView mCardProduct;
         TextView mTextViewProduct;
         TextView mTextViewPrice;
         TextView mTextViewDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            mCardProduct = (CardView) itemView.findViewById(R.id.cardProduct);
             mTextViewProduct = (TextView) itemView.findViewById(R.id.mTextViewProductName);
             mTextViewPrice = (TextView) itemView.findViewById(R.id.mTextViewPrice);
             mTextViewDate = (TextView) itemView.findViewById(R.id.mTextViewDate);
+
+            mCardProduct.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Snackbar.make(view, "Удалить?!", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Да", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Product product = new Product();
+                            product.setTitle(mTextViewProduct.getText().toString());
+                            product.setPrice(Integer.parseInt(mTextViewPrice.getText().toString()));
+                            DatabaseManager.getInstance(view.getContext()).remove(product, view.getContext());
+                            mProductList.remove(getAdapterPosition());
+                            notifyDataSetChanged();
+
+                        }
+                    }).show();
+
+
         }
     }
 }

@@ -1,4 +1,5 @@
 package tracker.app.fursa.moneytracker.db;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import tracker.app.fursa.moneytracker.data.Product;
 public interface DatabaseCRUD {
     void create(Product product);
 
-    boolean remove(Product product);
+    void remove(Product product, Context context);
 
     boolean update(Product old, Product newProduct);
 

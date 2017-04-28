@@ -6,11 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import tracker.app.fursa.moneytracker.adapter.RecyclerViewAdapter;
@@ -95,8 +93,12 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
     }
 
     @Override
-    public boolean remove(Product product) {
-        return false;
+    public void remove(Product product, Context context) {
+        int res = database.delete(TABLE_NAME, ROW_PRODUCT + " = '" + product.getTitle() +
+                "' AND " + ROW_PRICE + " = " + product.getPrice(), null);
+
+        //log
+        Log.d(LOG_TAG, String.valueOf(res));
     }
 
     @Override
@@ -127,7 +129,6 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
         return products;
     }
 
-    //TODO Not working!! Fix it later!
     @Override
     public int totalSum() {
         Cursor cursor = database.rawQuery("SELECT SUM(" + ROW_PRICE + ") AS PriceSum FROM " + TABLE_NAME + ";", null);

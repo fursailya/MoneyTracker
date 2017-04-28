@@ -19,4 +19,5 @@
     <string name="cancel">Отмена</string>
     <string name="title_spended_all_time">За все время потрачено</string>
     <string name="rub">Рублей</string>
+    <string name="removing_title">Удалить?</string>
 </resources>
