@@ -21,4 +21,7 @@ public interface DatabaseCRUD {
     List<Product> selectAll();
 
     int totalSum();
+
+    int getTotalByServiceTitle(String title);
+
 }

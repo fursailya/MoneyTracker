@@ -8,11 +8,13 @@ public class Product {
     private String title;
     private int price;
     private String date;
+    private String type;
 
-    public Product(String title, int price, String date) {
+    public Product(String title, int price, String date, String type) {
         this.title = title;
         this.price = price;
         this.date = date;
+        this.type = type;
     }
 
     public Product(String title, int price) {
@@ -47,4 +49,13 @@ public class Product {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

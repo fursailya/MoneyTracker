@@ -26,11 +26,14 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
     private static final String ROW_ID = "id";
     private static final String ROW_PRODUCT = "product";
     private static final String ROW_DATE = "date";
-    private static final int DB_VERSION = 1;
     private static final String ROW_PRICE = "price";
+    private static final String ROW_SERVICE_TYPE = "type";
 
     private static final String LOG_TAG = "DatabaseManager";
     private static final String TOTAL_SUM = "PriceSum";
+   // private static final String TOTAL_MEDICINE = "MedicineSum";
+
+    private static final int DB_VERSION = 2;
     //Instance of DatabaseManager class
     private static DatabaseManager instance = null;
     private Calendar calendar;
@@ -62,6 +65,7 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
                 + ROW_ID + " INTEGER PRIMARY KEY, "
                 + ROW_PRODUCT + " TEXT NOT NULL, "
                 + ROW_PRICE + " TEXT NOT NULL, "
+                + ROW_SERVICE_TYPE + " TEXT NOT NULL, "
                 + ROW_DATE + " INTEGER NOT NULL);"
         );
 
@@ -69,6 +73,7 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
                 + ROW_ID + " INTEGER PRIMARY KEY, "
                 + ROW_PRODUCT + " TEXT NOT NULL, "
                 + ROW_PRICE + " TEXT NOT NULL, "
+                + ROW_SERVICE_TYPE + " TEXT NOT NULL, "
                 + ROW_DATE + " INTEGER NOT NULL);");
     }
 
@@ -87,6 +92,7 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
         cv.put(ROW_PRODUCT, product.getTitle());
         cv.put(ROW_DATE, calendar.getTimeInMillis());
         cv.put(ROW_PRICE, product.getPrice());
+        cv.put(ROW_SERVICE_TYPE, product.getType());
         database.insert(TABLE_NAME, null, cv);
         database.setTransactionSuccessful();
         database.endTransaction();
@@ -115,11 +121,13 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
             int productIndex = cursor.getColumnIndex(ROW_PRODUCT);
             int priceIndex = cursor.getColumnIndex(ROW_PRICE);
             int dateIndex = cursor.getColumnIndex(ROW_DATE);
+            int typeIndex = cursor.getColumnIndex(ROW_SERVICE_TYPE);
 
             do {
                 products.add(new Product(
                         cursor.getString(productIndex),
                         cursor.getInt(priceIndex),
+                        cursor.getString(typeIndex),
                         Utils.getDateAndTime(cursor.getLong(dateIndex))));
             } while (cursor.moveToNext());
         } else {
@@ -133,6 +141,19 @@ public class DatabaseManager extends SQLiteOpenHelper implements DatabaseCRUD {
     public int totalSum() {
         Cursor cursor = database.rawQuery("SELECT SUM(" + ROW_PRICE + ") AS PriceSum FROM " + TABLE_NAME + ";", null);
         Log.d(LOG_TAG, "SELECT SUM(" + ROW_PRICE + ") AS " + TOTAL_SUM + " FROM " + TABLE_NAME + ";");
+        int sum = 0;
+        if(cursor.moveToFirst()) {
+            sum = cursor.getInt(cursor.getColumnIndex(TOTAL_SUM));
+        }
+        return sum;
+    }
+
+    @Override
+    public int getTotalByServiceTitle(String title) {
+        Cursor cursor = database.rawQuery("SELECT SUM(" + ROW_PRICE + ") AS " + TOTAL_SUM + " FROM " + TABLE_NAME +
+                        " WHERE " + ROW_SERVICE_TYPE + " = '" + title + "';", null);
+        Log.d(LOG_TAG, "SELECT SUM(" + ROW_PRICE + ") AS " + TOTAL_SUM + " FROM " + TABLE_NAME +
+                " WHERE " + ROW_SERVICE_TYPE + " = '" + title + "';");
         int sum = 0;
         if(cursor.moveToFirst()) {
             sum = cursor.getInt(cursor.getColumnIndex(TOTAL_SUM));

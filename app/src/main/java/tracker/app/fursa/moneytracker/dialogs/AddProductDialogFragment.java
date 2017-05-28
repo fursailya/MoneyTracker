@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import tracker.app.fursa.moneytracker.R;
 import tracker.app.fursa.moneytracker.adapter.RecyclerViewAdapter;
@@ -35,6 +36,7 @@ public class AddProductDialogFragment extends DialogFragment {
 
         final EditText mEditTextProduct = (EditText) view.findViewById(R.id.mEditTextProduct);
         final EditText mEditTextPrice = (EditText) view.findViewById(R.id.mEditTextPrice);
+        final Spinner mTypeSpinner = (Spinner) view.findViewById(R.id.mTypeSpinner);
 
         builder.setView(view);
         builder.setTitle(R.string.title_new_product);
@@ -45,6 +47,7 @@ public class AddProductDialogFragment extends DialogFragment {
                 Product product = new Product();
                 product.setTitle(mEditTextProduct.getText().toString());
                 product.setPrice(Integer.parseInt(mEditTextPrice.getText().toString()));
+                product.setType(mTypeSpinner.getSelectedItem().toString());
                 DatabaseManager.getInstance(getActivity()).create(product);
                 new RecyclerViewAdapter().updateData(DatabaseManager.getInstance(getActivity()).selectAll());
             }

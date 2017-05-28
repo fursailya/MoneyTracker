@@ -59,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.mTextViewDate.setText(product.getDate());
         holder.mTextViewProduct.setText(product.getTitle());
         holder.mTextViewPrice.setText(String.valueOf(product.getPrice()));
+        holder.mTextViewType.setText(product.getType());
 
     }
 
@@ -72,6 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView mTextViewProduct;
         TextView mTextViewPrice;
         TextView mTextViewDate;
+        TextView mTextViewType;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mTextViewProduct = (TextView) itemView.findViewById(R.id.mTextViewProductName);
             mTextViewPrice = (TextView) itemView.findViewById(R.id.mTextViewPrice);
             mTextViewDate = (TextView) itemView.findViewById(R.id.mTextViewDate);
+            mTextViewType = (TextView) itemView.findViewById(R.id.mTextViewType);
 
             mCardProduct.setOnClickListener(this);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

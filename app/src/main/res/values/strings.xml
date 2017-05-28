@@ -20,4 +20,22 @@
     <string name="title_spended_all_time">За все время потрачено</string>
     <string name="rub">Рублей</string>
     <string name="removing_title">Удалить?</string>
+    
+    <string name="products">Продукты</string>
+    <string name="public_service">ЖКХ</string>
+    <string name="medicine">Медицина</string>
+    <string name="entertainment">Развлечения</string>
+    <string name="transport">Транспорт</string>
+    <string name="other">Другие</string>
+    <string name="education">Учеба</string>
+
+    <string-array name="services">
+        <item>Продукты</item>
+        <item>ЖКХ</item>
+        <item>Медицина</item>
+        <item>Развлечения</item>
+        <item>Транспорт</item>
+        <item>Учеба</item>
+        <item>Другие</item>
+    </string-array>
 </resources>
